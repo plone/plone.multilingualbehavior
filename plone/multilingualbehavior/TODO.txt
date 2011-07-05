@@ -1,0 +1,14 @@
+======
+ ToDo
+======
+
+1.- Make marker interface applies to the dexterity driven object.
+2.- Once an object is translated, it must be adapted by Itranslated which provides the language information
+3.- We must provide the translation menu with the avaliable translation languages (LinguaPlone typical) for the objects providing the ITranslatable marker interface
+4.- The translation edit view. We should discuss what kind of view we want to provide to end user. Some users prefer the divided screen one for the translated item and one with the canonical one. But sometimes, it would be useful to have the chance to choose what kind of view you want to see when you are translating an object, and a mechanism to switch between them. It would be useful also to provide some kind of switch widget between existing languages, because it's interesting to allow people to choose which will use as "source" language. So this is one probable scenario:
+ * Traditional edit screen, by default.
+ * Some kind mechanism to allow switching to a divided screen. One part with the canonical language, and the other with the translated object edit view.
+ * A widget to switch the "source" language.
+5.- A manage translations form to allow users to perform actions over the translations like link them, delete and so on.
+
+Some of this items were already implemented in the old plone.app.multilingual, or are concepts already implemented in LinguaPlone, we only have to move from there to here.

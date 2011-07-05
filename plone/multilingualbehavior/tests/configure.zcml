@@ -1,0 +1,19 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="plone.multilingualbehavior"
+    >
+    
+    <includeDependencies package="." />
+
+  	<genericsetup:registerProfile
+    	name="testing"
+      	title="plone.multilingualbehavior"
+      	description="plone.multilingualbehavior"
+      	directory="profile"
+      	provides="Products.GenericSetup.interfaces.EXTENSION"
+      	for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    />    
+
+</configure>
+
