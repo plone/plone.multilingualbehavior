@@ -11,8 +11,7 @@
     	title="Multilingual Support"
     	description="Make this content type multilingual aware"
     	provides=".interfaces.IDexterityTranslatable"
-    	marker=".interfaces.IDexterityTranslatable"
-        for="plone.dexterity.interfaces.IDexterityContent"
+      for="plone.dexterity.interfaces.IDexterityContent"
     />
 
     <adapter 
