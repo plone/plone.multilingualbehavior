@@ -5,7 +5,7 @@ version = '1.0'
 
 setup(name='plone.multilingualbehavior',
       version=version,
-      description="Multilingual dexterity type behavior",
+      description="Dexterity types behavior for enabling multilingual extensions",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -16,7 +16,7 @@ setup(name='plone.multilingualbehavior',
       keywords='dexterity multilingual plone',
       author='Plone Foundation',
       author_email='sneridagh@gmail.com',
-      url='http://svn.plone.org/svn/plone/plone.multilingualbehavior',
+      url='https://github.com/plone/plone.multilingualbehavior',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['plone'],
