@@ -24,14 +24,7 @@
         provides="plone.multilingual.interfaces.ITranslationCloner"
         factory=".cloner.Cloner" />
 
-  	<genericsetup:registerProfile
-    	name="default"
-      	title="plone.multilingualbehavior"
-      	description="plone.multilingualbehavior"
-      	directory="profiles/default"
-      	provides="Products.GenericSetup.interfaces.EXTENSION"
-      	for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    />    
+
 
 </configure>
 
