@@ -3,7 +3,7 @@
    i18n:domain="plone.app.multilingual" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  
  <!-- Basic metadata -->
- <property name="title" i18n:translate="">samplecontent</property>
+ <property name="title" i18n:translate="">testtypegrok</property>
  <property name="content_icon">document_icon.gif</property>
  <property name="allow_discussion">True</property>
  <property name="global_allow">True</property>
@@ -28,9 +28,11 @@
   <element value="view"/>
  </property>
  
- <property name="schema"></property>
+ <!-- Schema --> 
+ <property name="schema">plone.multilingualbehavior.tests.schemata.ITestSchemaGrok</property>
  <property name="model_source"></property>
- <property name="model_file">plone.multilingualbehavior.tests:samplecontent_type.xml</property>
+ <property name="model_file"></property>
+ 
 
  <!-- Method aliases -->
  <alias from="(Default)" to="(selected layout)"/>

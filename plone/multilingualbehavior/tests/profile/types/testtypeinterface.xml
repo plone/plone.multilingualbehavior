@@ -3,7 +3,7 @@
    i18n:domain="plone.app.multilingual" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  
  <!-- Basic metadata -->
- <property name="title" i18n:translate="">testtype</property>
+ <property name="title" i18n:translate="">testtypeinterface</property>
  <property name="content_icon">document_icon.gif</property>
  <property name="allow_discussion">True</property>
  <property name="global_allow">True</property>
@@ -29,7 +29,7 @@
  </property>
  
  <!-- Schema --> 
- <property name="schema">plone.multilingualbehavior.tests.schemata.ITestSchema</property>
+ <property name="schema">plone.multilingualbehavior.tests.schemata.ITestSchemaInterface</property>
  <property name="model_source"></property>
  <property name="model_file"></property>
  

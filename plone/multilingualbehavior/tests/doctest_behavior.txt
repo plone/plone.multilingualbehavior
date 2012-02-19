@@ -18,7 +18,8 @@ Now we should be able to create a new Samplecontente-object::
 
     >>> portal = layer['portal']
     >>> browser.open('%s/++add++samplecontent' %(portal.absolute_url()))
-    >>> browser.getControl(name='form.widgets.title').value = 'Blubb'
+    >>> browser.getControl(name='form.widgets.field_test').value = 'Blubb'
+    >>> browser.getControl(name='form.widgets.field_independent_test').value = 'Blubb'
     >>> browser.getControl(name='form.buttons.save').click()
 
 We should be able to access the object, it should provide the marker
@@ -39,12 +40,33 @@ We should also be able to access the adapter for ``plone.multilingual.interfaces
 
 setting the language ::
     
-    >>> adapter.set_language('de')
+    >>> adapter.set_language('ca')
 
 getting the language::
 
     >>> adapter.get_language()
-    'de'
+    'ca'
+
+Translate the object::
+
+    >>> from plone.multilingual.interfaces import ITranslationManager
+    >>> ITranslationManager(portal.samplecontent).add_translation('en')
+    >>> obj_en = ITranslationManager(portal.samplecontent).get_translation('en')
+
+Check if the field has LanguageIndependentField marker interface::
+
+    >>> from zope.app.content import queryContentType
+    >>> from plone.multilingualbehavior.interfaces import ILanguageIndependentField
+    >>> schema = queryContentType(obj_en)
+    >>> ILanguageIndependentField.providedBy(schema['field_independent_test'])
+    True
+
+Get the language dependent field::
+
+    >>> obj_en.field_test
+
+    >>> obj_en.field_independent_test
+    u'Blubb'
 
 the cloner::
 
