@@ -1,0 +1,13 @@
+<model xmlns="http://namespaces.plone.org/supermodel/schema"
+       xmlns:lingua="http://namespaces.plone.org/supermodel/lingua">
+    <schema>
+      <field name="field_test" type="zope.schema.TextLine">
+        <description />
+        <title>field_test</title>
+      </field>
+      <field name="field_independent_test" type="zope.schema.TextLine" lingua:independent="true">
+        <description />
+        <title>field_test</title>
+      </field>
+    </schema>
+</model>
