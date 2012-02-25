@@ -5,39 +5,58 @@ from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from plone.multilingualbehavior.interfaces import IDexterityTranslatable
 from plone.multilingual.interfaces import ITranslationManager
 
+from plone.multilingualbehavior.interfaces import ILanguageIndependentField
+
+from plone.dexterity import utils
+
+from plone.multilingual.interfaces import ILanguage
+from zope.component import queryAdapter
 
 
-class LanguageIndependentModifier:
+class LanguageIndependentModifier(object):
     """Class to handle dexterity editions."""
 
     stack = []
 
-    def __call__(self, event):
+    def __call__(self, content, event):
         """Called by the event system."""
-        import pdb; pdb.set_trace()
-        if IDexterityTranslatable.providedBy(event.object):
+        if IDexterityTranslatable.providedBy(content):
             if IObjectAddedEvent.providedBy(event):
-                self.handleAdded(event.object)
+                self.handleAdded(content)
             elif IObjectModifiedEvent.providedBy(event):
-                self.handleModified(event.object)
+                self.handleModified(content)
             elif IObjectRemovedEvent.providedBy(event):
-                self.handleRemoved(event.object)
+                self.handleRemoved(content)
 
     def handleAdded(self, object):
         translations = self.getAllTranslations(object)
         self.modify(translations, None)
 
-    def handleModified(self, object):
-        canonical = ITranslationManager(object)
+    def handleModified(self, content):
+        canonical = ITranslationManager(content)
         if canonical in self.stack:
             return
         else:
             self.stack.append(canonical)
-            translations = self.getAllTranslations(object)
+            translations = self.getAllTranslations(content)
             # Search all Language Independent Fields
-            # For each modify it at translations
-            self.modify(translations, None)
-            self.stack.pop(canonical)
+            from zope.component import getUtility
+            from plone.dexterity.interfaces import IDexterityFTI
+            fti = getUtility(IDexterityFTI, name=content.portal_type)
+            schema = fti.lookupSchema()
+            # For each field modify it at translations
+            for field_name in schema:
+                if ILanguageIndependentField.providedBy(schema[field_name]):
+                    self.modify(translations, field_name, getattr(content, field_name))
+            for behavior_schema in \
+                   utils.getAdditionalSchemata(content, content.portal_type):
+                if behavior_schema is not None:
+                    for behavior_field in behavior_schema:
+                        if ILanguageIndependentField.providedBy(behavior_schema[behavior_field]):
+                            self.modify(translations, behavior_field, getattr(content, behavior_field))
+
+            self.reindexTranslations(translations)
+            self.stack.remove(canonical)
 
     def handleRemoved(self, object):
         canonical = ITranslationManager(object)
@@ -49,15 +68,28 @@ class LanguageIndependentModifier:
             self.modify(translations, None)
             self.stack.pop(canonical)
 
-    def getAllTranslations(self, object):
-        """Return all translations"""
-        canonical = ITranslationManager(object)
-        translations = canonical.get_translations()
-        return translations
+    def reindexTranslations(self, translations):
+        """Once the modifications are done, reindex all translations"""
+        for translation in translations:
+            translation.reindexObject()
 
-    def modify(self, translations, field):
-        """Edit the language independent field"""
-        import pdb; pdb.set_trace()
-        pass
-  
+    def getAllTranslations(self, content):
+        """Return all translations excluding the just modified content"""
+        translations_list_to_process = []
+        content_lang = queryAdapter(content, ILanguage).get_language()
+        canonical = ITranslationManager(content)
+        translations = canonical.get_translations()
+        for language in translations.keys():
+            if language != content_lang:
+                translations_list_to_process.append(translations[language])
+        return translations_list_to_process
+
+    def modify(self, translations, field, value):
+        """
+        Propagate the value of the language independent field
+        for each translation
+        """
+        for translation in translations:
+            setattr(translation, field, value)
+
 handler = LanguageIndependentModifier()

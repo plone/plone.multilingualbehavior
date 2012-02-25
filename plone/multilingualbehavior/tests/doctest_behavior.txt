@@ -29,6 +29,10 @@ interface ``plone.multilingual.interfaces.ITranslatable``::
     >>> from plone.multilingual.interfaces import ITranslatable
     >>> ITranslatable.providedBy(obj)
     True
+
+    >>> from plone.multilingualbehavior.interfaces import IDexterityTranslatable
+    >>> IDexterityTranslatable.providedBy(obj)
+    True
     
 We should also be able to access the adapter for ``plone.multilingual.interfaces.ILanguage``::
 
@@ -52,6 +56,7 @@ Translate the object::
     >>> from plone.multilingual.interfaces import ITranslationManager
     >>> ITranslationManager(portal.samplecontent).add_translation('en')
     >>> obj_en = ITranslationManager(portal.samplecontent).get_translation('en')
+    >>> import transaction; transaction.commit()
 
 Check if the field has LanguageIndependentField marker interface::
 
@@ -61,12 +66,24 @@ Check if the field has LanguageIndependentField marker interface::
     >>> ILanguageIndependentField.providedBy(schema['field_independent_test'])
     True
 
+So let's change the language independent field from the EN object:
+    
+    >>> browser.open('%s/samplecontent/edit' %(portal.absolute_url()))
+    >>> browser.getControl(name='form.widgets.field_test').value = 'Blubb'
+    >>> browser.getControl(name='form.widgets.field_independent_test').value = 'BlubbChanged'
+    >>> browser.getControl(name='form.buttons.save').click()
+
+Check if the value of the language independent field is the same on all translations:
+
+    >>> obj_en.field_independent_test
+    u'BlubbChanged'
+
+    >>> obj.field_independent_test
+    u'BlubbChanged'
+
 Get the language dependent field::
 
     >>> obj_en.field_test
-
-    >>> obj_en.field_independent_test
-    u'Blubb'
 
 the cloner::
 
