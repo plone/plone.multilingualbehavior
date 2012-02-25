@@ -14,7 +14,6 @@ class LanguageIndependentModifier:
 
     def __call__(self, event):
         """Called by the event system."""
-        import pdb; pdb.set_trace()
         if IDexterityTranslatable.providedBy(event.object):
             if IObjectAddedEvent.providedBy(event):
                 self.handleAdded(event.object)
@@ -57,7 +56,7 @@ class LanguageIndependentModifier:
 
     def modify(self, translations, field):
         """Edit the language independent field"""
-        import pdb; pdb.set_trace()
+        # TODO
         pass
   
 handler = LanguageIndependentModifier()
