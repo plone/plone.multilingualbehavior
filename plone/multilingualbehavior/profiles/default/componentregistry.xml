@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<componentregistry>
+  <adapters>
+    <adapter
+      for="plone.multilingualbehavior.interfaces.IDexterityTranslatable"
+      provides="plone.multilingual.interfaces.ITranslationCloner"
+      factory="plone.multilingualbehavior.cloner.Cloner"
+    />
+  </adapters>
+</componentregistry>
+

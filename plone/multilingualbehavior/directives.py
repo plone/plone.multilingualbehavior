@@ -1,14 +1,6 @@
 import martian
 
-from zope.interface import Interface
 from zope.interface.interface import TAGGED_DATA
-from zope.interface.interfaces import IInterface
-
-from plone.supermodel.interfaces import FILENAME_KEY, SCHEMA_NAME_KEY, FIELDSETS_KEY
-from plone.supermodel.model import Fieldset
-
-from plone.autoform.interfaces import OMITTED_KEY, WIDGETS_KEY, MODES_KEY, ORDER_KEY
-from plone.autoform.interfaces import READ_PERMISSIONS_KEY, WRITE_PERMISSIONS_KEY
 
 TEMP_KEY = '__form_directive_values__'
 
