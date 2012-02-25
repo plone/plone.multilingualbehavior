@@ -9,6 +9,7 @@
     <includeDependencies package="." />
 	
     <include file="meta.zcml" />
+    <include file="subscriber.zcml" />
 
     <plone:behavior
     	title="Multilingual Support"
@@ -23,7 +24,8 @@
         factory=".language.Language" />
 
     <adapter 
-        for=".interfaces.IDexterityTranslatable"
+        for="plone.multilingual.interfaces.ITranslatable
+             .interfaces.IDexterityTranslatable"
         provides="plone.multilingual.interfaces.ITranslationCloner"
         factory=".cloner.Cloner" />
 
