@@ -5,7 +5,7 @@ version = '1.0'
 
 setup(name='plone.multilingualbehavior',
       version=version,
-      description="Dexterity types behavior for enabling multilingual extensions",
+      description="Dexterity behavior for enabling multilingual extensions",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -27,7 +27,6 @@ setup(name='plone.multilingualbehavior',
           'plone.directives.dexterity',
           'plone.app.dexterity',
           'plone.multilingual',
-          # -*- Extra requirements: -*-
       ],
       extras_require = {
           'test': [ 'plone.app.testing',],
