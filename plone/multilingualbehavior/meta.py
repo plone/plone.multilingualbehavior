@@ -1,11 +1,10 @@
-
 import martian
 from martian.error import GrokImportError
 
 from zope.interface import alsoProvides
 
 from plone.multilingualbehavior.interfaces import ILanguageIndependentField
-from plone.multilingualbehavior.schema import languageindependent
+from plone.multilingualbehavior.directives import languageindependent
 from plone.directives.form.schema import Schema
 
 class MultilingualGrokker(martian.InstanceGrokker):

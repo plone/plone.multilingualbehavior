@@ -10,6 +10,7 @@
 	
     <include file="meta.zcml" />
     <include file="subscriber.zcml" />
+    <include file="profile.zcml" />
 
     <plone:behavior
     	title="Multilingual Support"
@@ -22,12 +23,6 @@
         for=".interfaces.IDexterityTranslatable"
         provides="plone.multilingual.interfaces.ILanguage"
         factory=".language.Language" />
-
-    <adapter 
-        for="plone.multilingual.interfaces.ITranslatable
-             .interfaces.IDexterityTranslatable"
-        provides="plone.multilingual.interfaces.ITranslationCloner"
-        factory=".cloner.Cloner" />
 
     <!-- Configure plone.supermodel handler if available -->
     <utility zcml:condition="installed plone.supermodel"
