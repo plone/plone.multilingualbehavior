@@ -23,7 +23,8 @@ Now we should be able to create a new Samplecontente-object::
     >>> browser.getControl(name='form.buttons.save').click()
 
 We should be able to access the object, it should provide the marker
-interface ``plone.multilingual.interfaces.ITranslatable``::
+interface ``plone.multilingual.interfaces.ITranslatable`` and 
+``plone.multilingual.interfaces.IDexterityTranslatable``::
 
     >>> obj = portal.get('samplecontent')
     >>> from plone.multilingual.interfaces import ITranslatable
