@@ -1,6 +1,7 @@
 from zope.app.container.interfaces import IObjectAddedEvent
 from zope.app.container.interfaces import IObjectRemovedEvent
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
+from zope.lifecycleevent import ObjectModifiedEvent
 
 from plone.multilingualbehavior.interfaces import IDexterityTranslatable
 from plone.multilingual.interfaces import ITranslationManager
@@ -12,6 +13,9 @@ from plone.dexterity import utils
 from plone.multilingual.interfaces import ILanguage
 from zope.component import queryAdapter
 
+from zope.event import notify
+from zope.lifecycleevent import Attributes
+
 
 class LanguageIndependentModifier(object):
     """Class to handle dexterity editions."""
@@ -21,19 +25,11 @@ class LanguageIndependentModifier(object):
     def __call__(self, content, event):
         """Called by the event system."""
         if IDexterityTranslatable.providedBy(content):
-            if IObjectAddedEvent.providedBy(event):
-                self.handleAdded(content)
-            elif IObjectModifiedEvent.providedBy(event):
+            if IObjectModifiedEvent.providedBy(event):
                 self.handleModified(content)
-            elif IObjectRemovedEvent.providedBy(event):
-                self.handleRemoved(content)
-
-    def handleAdded(self, object):
-        translations = self.getAllTranslations(object)
-        self.modify(translations, None)
 
     def handleModified(self, content):
-        canonical = ITranslationManager(content)
+        canonical = ITranslationManager(content).query_canonical()
         if canonical in self.stack:
             return
         else:
@@ -54,24 +50,15 @@ class LanguageIndependentModifier(object):
                     for behavior_field in behavior_schema:
                         if ILanguageIndependentField.providedBy(behavior_schema[behavior_field]):
                             self.modify(translations, behavior_field, getattr(content, behavior_field))
-
-            self.reindexTranslations(translations)
+            descriptions = Attributes(schema)
+            self.reindexTranslations(translations, descriptions)
             self.stack.remove(canonical)
 
-    def handleRemoved(self, object):
-        canonical = ITranslationManager(object)
-        if canonical in self.pile_of_translations_of_modified:
-            return
-        else:
-            self.stack.append(canonical)
-            translations = self.getAllTranslations(object)
-            self.modify(translations, None)
-            self.stack.pop(canonical)
-
-    def reindexTranslations(self, translations):
+    def reindexTranslations(self, translations, descriptions):
         """Once the modifications are done, reindex all translations"""
         for translation in translations:
             translation.reindexObject()
+            notify( ObjectModifiedEvent(translation, descriptions))
 
     def getAllTranslations(self, content):
         """Return all translations excluding the just modified content"""
