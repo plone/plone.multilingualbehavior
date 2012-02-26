@@ -4,8 +4,8 @@
     xmlns:five="http://namespaces.zope.org/five">
 
     <subscriber
+      for="plone.multilingualbehavior.interfaces.IDexterityTranslatable
+           zope.lifecycleevent.interfaces.IObjectModifiedEvent" 
       handler=".subscriber.handler"
-      for="zope.lifecycleevent.interfaces.IObjectModifiedEvent
-           plone.multilingualbehavior.interfaces.IDexterityTranslatable" /> 
-
+      /> 
 </configure>
