@@ -15,7 +15,7 @@ class LanguageIndependentFieldsManager(object):
     def __init__(self, context):
         self.context = context
 
-    def get_field_names(self):
+    def copy_fields(self, translation):
         fti = getUtility(IDexterityFTI, name=self.context.portal_type)
         schemas = []
         schemas.append(fti.lookupSchema())
@@ -25,17 +25,11 @@ class LanguageIndependentFieldsManager(object):
             if behavior_schema is not None:
                 schemas.append(behavior_schema)
 
-        field_names = []
         for schema in schemas:
             for field_name in schema:
                 if ILanguageIndependentField.providedBy(schema[field_name]):
-                    field_names.append(field_name)
-        return field_names
+                    value = getattr(self.context, field_name)
+                    setattr(translation, field_name, value)
 
 
-    def copy_fields(self, translation):
-        field_names = self.get_field_names()
-        for field_name in field_names:
-            value = getattr(self.context, field_name)
-            setattr(translation, field_name, value)
 
