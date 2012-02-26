@@ -5,8 +5,6 @@ from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from plone.multilingualbehavior.interfaces import IDexterityTranslatable
 from plone.multilingual.interfaces import ITranslationManager
 
-
-
 class LanguageIndependentModifier:
     """Class to handle dexterity editions."""
 
