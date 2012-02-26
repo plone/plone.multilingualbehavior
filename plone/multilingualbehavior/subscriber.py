@@ -8,11 +8,10 @@ from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from plone.dexterity.interfaces import IDexterityFTI
 
 from plone.multilingualbehavior.interfaces import IDexterityTranslatable
-from plone.multilingual.interfaces import ILanguageIndependentFieldsManager
 
-from plone.multilingual.interfaces import ITranslationManager
 from plone.multilingual.interfaces import ILanguage
-
+from plone.multilingual.interfaces import ILanguageIndependentFieldsManager
+from plone.multilingual.interfaces import ITranslationManager
 
 class LanguageIndependentModifier(object):
     """Class to handle dexterity editions."""
@@ -23,9 +22,9 @@ class LanguageIndependentModifier(object):
         """Called by the event system."""
         if IDexterityTranslatable.providedBy(content):
             if IObjectModifiedEvent.providedBy(event):
-                self.handleModified(content)
+                self.handle_modified(content)
 
-    def handleModified(self, content):
+    def handle_modified(self, content):
         canonical = ITranslationManager(content).query_canonical()
         if canonical in self.stack:
             return
@@ -33,7 +32,7 @@ class LanguageIndependentModifier(object):
             self.stack.append(canonical)
 
             # Copy over all language independent fields
-            translations = self.getAllTranslations(content)
+            translations = self.get_all_translations(content)
             manager = ILanguageIndependentFieldsManager(content)
             for translation in translations:
                 manager.copy_fields(translation)
@@ -41,16 +40,16 @@ class LanguageIndependentModifier(object):
             fti = getUtility(IDexterityFTI, name=content.portal_type)
             schema = fti.lookupSchema()
             descriptions = Attributes(schema)
-            self.reindexTranslations(translations, descriptions)
+            self.reindex_translations(translations, descriptions)
             self.stack.remove(canonical)
 
-    def reindexTranslations(self, translations, descriptions):
+    def reindex_translations(self, translations, descriptions):
         """Once the modifications are done, reindex all translations"""
         for translation in translations:
             translation.reindexObject()
             notify( ObjectModifiedEvent(translation, descriptions))
 
-    def getAllTranslations(self, content):
+    def get_all_translations(self, content):
         """Return all translations excluding the just modified content"""
         translations_list_to_process = []
         content_lang = queryAdapter(content, ILanguage).get_language()
