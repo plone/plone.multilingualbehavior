@@ -11,6 +11,7 @@ if HAVE_EDITOREXTENDER:
     from zope.schema import interfaces 
     from zope.component import adapts,provideAdapter, adapter
 
+    from zope.schema.interfaces import IField
     from plone.schemaeditor.interfaces import ISchemaContext
 
     #from plone.schemaeditor.interfaces import IBehaviorExtensionFields
@@ -37,9 +38,6 @@ if HAVE_EDITOREXTENDER:
             return ILanguageIndependentField.providedBy(self.field)
 
         def _write_languageindependent(self, value):
-            li = self.context.interface.queryTaggedValue('languageindependent', {})
-            li[self.field.__name__] = value
-            self.context.setTaggedValue('languageindependent', li)
             if value:
                 alsoProvides(self.field, ILanguageIndependentField)
             else:
@@ -51,7 +49,7 @@ if HAVE_EDITOREXTENDER:
     # the schema only if additional conditions pass:
     @adapter(ISchemaContext, IField)
     def get_li_schema(schema_context, field):
-        if field.__name__ == 'asdf':
+        if 'plone.multilingualbehavior.interfaces.IDexterityTranslatable' in schema_context.fti.behaviors:
             return IFieldLanguageIndependent
 
 
