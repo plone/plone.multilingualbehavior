@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# vim: set ts=4 sw=4:
 from zope import interface
-from plone.multilingual.interfaces import ITranslationCloner
 
+from plone.multilingual.interfaces import ITranslationCloner
+from plone.multilingual.interfaces import ILanguageIndependentFieldsManager
 
 class Cloner(object):
 
@@ -11,5 +11,5 @@ class Cloner(object):
     def __init__(self, context):
         self.context = context
 
-    def __call__(self, object):
-        return
+    def __call__(self, obj):
+        ILanguageIndependentFieldsManager(self.context).copy_fields(obj)

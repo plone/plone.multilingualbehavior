@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# vim: set ts=4 sw=4:
 import doctest
 from plone.app.testing import (
     PLONE_FIXTURE,
@@ -11,7 +10,6 @@ from plone.app.testing import (
     FunctionalTesting,
 )
 from zope.configuration import xmlconfig
-
 
 class PloneMultilingualbehaviorLayer(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE,)
@@ -27,6 +25,7 @@ class PloneMultilingualbehaviorLayer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         # install into the Plone site
+        applyProfile(portal, 'plone.multilingualbehavior:default')
         applyProfile(portal, 'plone.multilingualbehavior.tests:testing')
         setRoles(portal, TEST_USER_ID, ['Manager'])
 

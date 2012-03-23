@@ -1,0 +1,66 @@
+plone.multilingualbehavior tests testtypeinterface Object
+---------------------------------------------------------
+
+Just use the behavior ``plone.multilingualbehavior.interfaces.ITranslatable`` 
+
+Now we should be able to create a new testypeinterface-object::
+
+    >>> portal = layer['portal']
+    >>> portal.invokeFactory(type_name='testtypeinterface', id='testinterface', language='ca')
+    'testinterface'
+
+We should be able to access the object, it should provide the marker
+interface ``plone.multilingual.interfaces.ITranslatable``::
+
+    >>> obj = portal.get('testinterface')
+    >>> from plone.multilingual.interfaces import ITranslatable
+    >>> ITranslatable.providedBy(obj)
+    True
+    
+We should also be able to access the adapter for ``plone.multilingual.interfaces.ILanguage``::
+
+    >>> from plone.multilingual.interfaces import ILanguage
+    >>> from zope.component import queryAdapter
+    >>> adapter = queryAdapter(obj, ILanguage)
+    >>> adapter == None
+    False
+
+setting the language ::
+    
+    >>> adapter.set_language('ca')
+
+getting the language::
+
+    >>> adapter.get_language()
+    'ca'
+
+Translate the object::
+
+    >>> from plone.multilingual.interfaces import ITranslationManager
+    >>> ITranslationManager(obj).add_translation('en')
+    >>> obj_en = ITranslationManager(obj).get_translation('en')
+
+Check if the field has LanguageIndependentField marker interface::
+
+    >>> from zope.component import getUtility
+    >>> from plone.dexterity.interfaces import IDexterityFTI
+    >>> from plone.multilingualbehavior.interfaces import ILanguageIndependentField
+    >>> fti = getUtility(IDexterityFTI, name=obj_en.portal_type)
+    >>> schema = fti.lookupSchema()
+    >>> ILanguageIndependentField.providedBy(schema['description'])
+    True
+
+Get the language dependent field::
+
+    >>> obj_en.title
+    u''
+
+    >>> obj_en.description
+    u'Blubb'
+
+the cloner::
+
+    >>> from plone.multilingual.interfaces import ITranslationCloner
+    >>> cloner = ITranslationCloner(obj)
+    >>> cloner.__class__
+    <class 'plone.multilingualbehavior.cloner.Cloner'>
