@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.2b3'
+version = '1.0b1'
 
 setup(name='plone.multilingualbehavior',
       version=version,

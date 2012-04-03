@@ -1,0 +1,10 @@
+Changelog
+=========
+
+1.0b1 - 2012-4-3
+----------------
+
+- Schema editor plugin to enable language indepedent fields TTW [ramon]
+- Language independent field implementation [ramon]
+- Supermodel, grok and native language independent field markers [ramon]
+- ILanguage implementation [awello]
