@@ -28,8 +28,8 @@ class LanguageIndependentFieldsManager(object):
         for schema in schemas:
             for field_name in schema:
                 if ILanguageIndependentField.providedBy(schema[field_name]):
-                    value = getattr(self.context, field_name)
-                    setattr(translation, field_name, value)
+                    value = getattr(schema(self.context), field_name)
+                    setattr(schema(translation), field_name, value)
 
 
 
