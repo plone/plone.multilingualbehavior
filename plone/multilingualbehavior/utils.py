@@ -9,6 +9,7 @@ from plone.multilingual.interfaces import ILanguageIndependentFieldsManager
 
 from plone.multilingualbehavior.interfaces import ILanguageIndependentField
 
+_marker = object()
 class LanguageIndependentFieldsManager(object):
     interface.implements(ILanguageIndependentFieldsManager)
 
@@ -28,8 +29,9 @@ class LanguageIndependentFieldsManager(object):
         for schema in schemas:
             for field_name in schema:
                 if ILanguageIndependentField.providedBy(schema[field_name]):
-                    value = getattr(schema(self.context), field_name)
-                    setattr(schema(translation), field_name, value)
+                    value = getattr(schema(self.context), field_name, _marker)
+                    if value != _marker:
+                        setattr(schema(translation), field_name, value)
 
 
 
