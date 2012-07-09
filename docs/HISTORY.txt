@@ -1,11 +1,15 @@
 Changelog
 =========
 
-1.0b2 (unreleased)
+1.0b3 - unrealesed
 ------------------
 
-- Handle case of behaviors where attributes have never been set
-  [do3cc]
+
+1.0b2 - 2012-7-9
+----------------
+
+- Enable Realtedfields copying the correct translated item when is language independent [ramon]
+- Handle case of behaviors where attributes have never been set [do3cc]
 
 
 1.0b1 - 2012-4-3

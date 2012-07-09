@@ -8,8 +8,19 @@ from plone.dexterity.interfaces import IDexterityFTI
 from plone.multilingual.interfaces import ILanguageIndependentFieldsManager
 
 from plone.multilingualbehavior.interfaces import ILanguageIndependentField
+from z3c.relationfield.interfaces import IRelationValue
+
+from plone.multilingual.interfaces import ILanguage
+from zope.component import queryAdapter
+from plone.multilingual.interfaces import ITranslationManager
+
+from zope.app.intid.interfaces import IIntIds
+from zope import component
+from z3c.relationfield import RelationValue
 
 _marker = object()
+
+
 class LanguageIndependentFieldsManager(object):
     interface.implements(ILanguageIndependentFieldsManager)
 
@@ -30,7 +41,15 @@ class LanguageIndependentFieldsManager(object):
             for field_name in schema:
                 if ILanguageIndependentField.providedBy(schema[field_name]):
                     value = getattr(schema(self.context), field_name, _marker)
-                    if value != _marker:
+                    if IRelationValue.providedBy(value):
+                        obj = value.to_object
+                        adapter = queryAdapter(translation, ILanguage)
+                        trans_obj = ITranslationManager(obj).get_translation(adapter.get_language())
+                        if trans_obj:
+                            intids = component.getUtility(IIntIds)
+                            value = RelationValue(intids.getId(trans_obj))
+                    if not (value == _marker):
+                        # We check if not (value == _marker) because z3c.relationfield has an __eq__
                         setattr(schema(translation), field_name, value)
 
 

@@ -56,6 +56,10 @@ Check if the field has LanguageIndependentField marker interface::
 
 Get the language dependent field::
 
+    >>> obj.description = u'Blubb'
+    >>> from zope.lifecycleevent import ObjectModifiedEvent
+    >>> from zope.event import notify
+    >>> notify(ObjectModifiedEvent(obj))
     >>> obj_en.title
     u''
 
@@ -68,3 +72,27 @@ the cloner::
     >>> cloner = ITranslationCloner(obj)
     >>> cloner.__class__
     <class 'plone.multilingualbehavior.cloner.Cloner'>
+
+
+Related fields
+==============
+
+    >>> portal.invokeFactory(type_name='testtyperelatedgrok', id='testtyperelatedgrok', language='ca')
+    'testtyperelatedgrok'
+    >>> obj = portal.get('testtyperelatedgrok')
+    >>> ITranslatable.providedBy(obj)
+    True
+    >>> from z3c.relationfield import RelationValue
+    >>> from zope.app.intid.interfaces import IIntIds
+    >>> from zope import component
+    >>> intids = component.getUtility(IIntIds)
+    >>> obj.single = RelationValue(intids.getId(portal.get('testtypegrok')))
+
+We should be able to translate the type and get the translated related field::
+
+    >>> ITranslationManager(obj).add_translation('en')
+    >>> obj_en = ITranslationManager(obj).get_translation('en')
+    >>> obj.single.to_object
+    <Item at /plone/testtypegrok>
+    >>> obj_en.single.to_object
+    <Item at /plone/testtypegrok-en>
