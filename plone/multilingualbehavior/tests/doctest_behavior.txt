@@ -43,8 +43,13 @@ We should also be able to access the adapter for ``plone.multilingual.interfaces
     >>> adapter == None
     False
 
+Getting the default language ::
+
+    >>> adapter.get_language()
+    'en'
+
 setting the language ::
-    
+
     >>> adapter.set_language('ca')
 
 getting the language::

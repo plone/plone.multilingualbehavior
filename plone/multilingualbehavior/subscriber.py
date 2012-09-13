@@ -13,6 +13,18 @@ from plone.multilingual.interfaces import ILanguage
 from plone.multilingual.interfaces import ILanguageIndependentFieldsManager
 from plone.multilingual.interfaces import ITranslationManager
 
+from Products.CMFCore.utils import getToolByName
+from zope.component.hooks import getSite
+
+
+def createdEvent(obj, event):
+    language_tool = getToolByName(getSite(), 'portal_languages', None)
+    default_language = language_tool.getDefaultLanguage()
+    language = ILanguage(obj).get_language()
+    if (language == ''):
+        ILanguage(obj).set_language(default_language)
+
+
 class LanguageIndependentModifier(object):
     """Class to handle dexterity editions."""
 

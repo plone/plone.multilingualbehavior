@@ -19,6 +19,14 @@
       for="plone.dexterity.interfaces.IDexterityContent"
     />
 
+
+    <subscriber
+      for=".interfaces.IDexterityTranslatable
+           zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+      handler=".subscriber.createdEvent"
+      />
+
+
     <adapter 
         for=".interfaces.IDexterityTranslatable"
         provides="plone.multilingual.interfaces.ILanguage"
