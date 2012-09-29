@@ -33,3 +33,5 @@ def setDefaultLanguage(data):
     portal = getSite()
     pl = getToolByName(portal, "portal_languages")
     return pl.getDefaultLanguage()
+
+ICategorization['language'].readonly = True
