@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
-<object name="testtypegrok" meta_type="Dexterity FTI"
+<object name="testtypegrokfolder" meta_type="Dexterity FTI"
    i18n:domain="plone.app.multilingual" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
  <!-- Basic metadata -->
- <property name="title" i18n:translate="">testtypegrok</property>
- <property name="content_icon">document_icon.gif</property>
+ <property name="title" i18n:translate="">testtypegrokfolder</property>
+ <property name="content_icon">folder.gif</property>
  <property name="allow_discussion">True</property>
  <property name="global_allow">True</property>
- <property name="filter_content_types">True</property>
+ <property name="filter_content_types">False</property>
  <property name="allowed_content_types" />
 
  <!-- class used for content items -->
- <property name="klass">plone.dexterity.content.Item</property>
+ <property name="klass">plone.dexterity.content.Container</property>
 
  <!-- add permission -->
  <property name="add_permission">cmf.AddPortalContent</property>
@@ -19,7 +19,7 @@
  <!-- enabled behaviors -->
  <property name="behaviors">
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
-  <element value="plone.multilingualbehavior.interfaces.IDexterityTranslatable" />
+     <element value="plone.multilingualbehavior.interfaces.IDexterityTranslatable" />
  </property>
 
  <!-- View information -->

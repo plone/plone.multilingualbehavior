@@ -1,0 +1,28 @@
+Default language
+================
+
+    >>> from plone.testing.z2 import Browser
+    >>> portal = layer['portal']
+    >>> browser = Browser(layer['app'])
+    >>> browser.handleErrors = False
+    >>> from plone.app.testing import TEST_USER_ID, TEST_USER_NAME, TEST_USER_PASSWORD
+    >>> from plone.app.testing import setRoles
+    >>> setRoles(portal, TEST_USER_ID, ['Manager'])
+    >>> browser.addHeader('Authorization', 'Basic %s:%s' % (TEST_USER_NAME, TEST_USER_PASSWORD))
+
+    >>> portal.invokeFactory(type_name='testtypegrokfolder', id='folder', language='ca')
+    'folder'
+    >>> import transaction
+    >>> transaction.commit()
+    >>> folder = portal['folder']
+    >>> from plone.multilingual.interfaces import ILanguage
+    >>> ILanguage(folder).set_language('ca')
+
+    >>> browser.open('%s/++add++testtypegrok' %(folder.absolute_url()))
+    >>> browser.getControl(name="form.widgets.IDublinCore.title").value = "doc"
+    >>> browser.getControl(name="form.widgets.title").value = "doc"
+    >>> browser.getControl(name="form.buttons.save").click()
+
+    >>> doc = folder['testtypegrok']
+    >>> ILanguage(doc).get_language()
+    'ca'

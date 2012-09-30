@@ -12,6 +12,7 @@ integration_tests = [
     'doctest_grok_directive.txt'
 ]
 functional_tests = [
+    'language.txt'
 ]
 
 

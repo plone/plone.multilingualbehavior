@@ -1,5 +1,17 @@
 <?xml version="1.0"?>
 <componentregistry>
+  <subscribers>
+    <subscriber
+    for="plone.multilingualbehavior.interfaces.IDexterityTranslatable
+         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    handler="plone.multilingualbehavior.subscriber.handler"
+    />
+    <subscriber
+    for="plone.multilingualbehavior.interfaces.IDexterityTranslatable
+         zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+    handler="plone.multilingualbehavior.subscriber.createdEvent"
+    />
+  </subscribers>
   <adapters>
     <adapter
       for="plone.multilingualbehavior.interfaces.IDexterityTranslatable"

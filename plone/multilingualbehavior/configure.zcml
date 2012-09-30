@@ -12,7 +12,6 @@
     <grok:grok package=".language" />
 
     <include file="meta.zcml" />
-    <include file="subscriber.zcml" />
     <include file="profile.zcml" />
 
     <plone:behavior
@@ -21,12 +20,6 @@
     	provides=".interfaces.IDexterityTranslatable"
       for="plone.dexterity.interfaces.IDexterityContent"
     />
-
-    <subscriber
-      for=".interfaces.IDexterityTranslatable
-           zope.lifecycleevent.interfaces.IObjectCreatedEvent"
-      handler=".subscriber.createdEvent"
-      />
 
     <adapter
         for=".interfaces.IDexterityTranslatable"

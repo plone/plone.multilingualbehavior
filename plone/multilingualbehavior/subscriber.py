@@ -1,9 +1,12 @@
+from Acquisition import aq_parent
 from zope.component import getUtility
 from zope.component import queryAdapter
 from zope.event import notify
 from zope.lifecycleevent import Attributes
 from zope.lifecycleevent import ObjectModifiedEvent
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
+
+from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 from plone.dexterity.interfaces import IDexterityFTI
 
@@ -18,11 +21,16 @@ from zope.component.hooks import getSite
 
 
 def createdEvent(obj, event):
-    language_tool = getToolByName(getSite(), 'portal_languages', None)
-    default_language = language_tool.getDefaultLanguage()
-    language = ILanguage(obj).get_language()
-    if (language == ''):
-        ILanguage(obj).set_language(default_language)
+    portal = getSite()
+    parent = aq_parent(obj)
+    pl = getToolByName(portal, "portal_languages")
+
+    if IPloneSiteRoot.implementedBy(parent):
+        language = pl.getPreferredLanguage()
+    else:
+        language = ILanguage(parent).get_language()
+
+    return language
 
 
 class LanguageIndependentModifier(object):
@@ -59,7 +67,7 @@ class LanguageIndependentModifier(object):
         """Once the modifications are done, reindex all translations"""
         for translation in translations:
             translation.reindexObject()
-            notify( ObjectModifiedEvent(translation, descriptions))
+            notify(ObjectModifiedEvent(translation, descriptions))
 
     def get_all_translations(self, content):
         """Return all translations excluding the just modified content"""

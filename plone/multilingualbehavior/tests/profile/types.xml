@@ -1,6 +1,7 @@
 <object name="portal_types">
     <object name="samplecontent" meta_type="Dexterity FTI" />
     <object name="testtypegrok" meta_type="Dexterity FTI" />
+    <object name="testtypegrokfolder" meta_type="Dexterity FTI" />
     <object name="testtypeinterface" meta_type="Dexterity FTI" />
     <object name="testtyperelatedgrok" meta_type="Dexterity FTI" />
 </object>

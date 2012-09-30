@@ -1,7 +1,7 @@
 plone.multilingualbehavior tests testtypegrok a directive type
 --------------------------------------------------------------
 
-Just use the behavior ``plone.multilingualbehavior.interfaces.ITranslatable`` 
+Just use the behavior ``plone.multilingualbehavior.interfaces.ITranslatable``
 
 Now we should be able to create a new testypeinterface-object::
 
@@ -16,7 +16,7 @@ interface ``plone.multilingual.interfaces.ITranslatable``::
     >>> from plone.multilingual.interfaces import ITranslatable
     >>> ITranslatable.providedBy(obj)
     True
-    
+
 We should also be able to access the adapter for ``plone.multilingual.interfaces.ILanguage``::
 
     >>> from plone.multilingual.interfaces import ILanguage
@@ -26,7 +26,7 @@ We should also be able to access the adapter for ``plone.multilingual.interfaces
     False
 
 setting the language ::
-    
+
     >>> adapter.set_language('ca')
 
 getting the language::
@@ -50,7 +50,7 @@ Check if the field has LanguageIndependentField marker interface::
     >>> ILanguageIndependentField.providedBy(schema['description'])
     True
     >>> ILanguageIndependentField.providedBy(schema['description2'])
-    True    
+    True
     >>> ILanguageIndependentField.providedBy(schema['title'])
     False
 
