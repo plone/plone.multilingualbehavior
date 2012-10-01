@@ -8,7 +8,7 @@
     />
     <subscriber
     for="plone.multilingualbehavior.interfaces.IDexterityTranslatable
-         zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+         zope.app.container.interfaces.IObjectAddedEvent"
     handler="plone.multilingualbehavior.subscriber.createdEvent"
     />
   </subscribers>

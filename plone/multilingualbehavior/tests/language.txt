@@ -12,17 +12,15 @@ Default language
 
     >>> portal.invokeFactory(type_name='testtypegrokfolder', id='folder', language='ca')
     'folder'
-    >>> import transaction
-    >>> transaction.commit()
     >>> folder = portal['folder']
     >>> from plone.multilingual.interfaces import ILanguage
     >>> ILanguage(folder).set_language('ca')
+    >>> from zope.event import notify
+    >>> from zope.lifecycleevent import ObjectModifiedEvent
+    >>> notify(ObjectModifiedEvent(folder))
 
-    >>> browser.open('%s/++add++testtypegrok' %(folder.absolute_url()))
-    >>> browser.getControl(name="form.widgets.IDublinCore.title").value = "doc"
-    >>> browser.getControl(name="form.widgets.title").value = "doc"
-    >>> browser.getControl(name="form.buttons.save").click()
-
-    >>> doc = folder['testtypegrok']
+    >>> folder.invokeFactory(type_name='testtypegrok', id='doc')
+    'doc'
+    >>> doc = folder['doc']
     >>> ILanguage(doc).get_language()
     'ca'

@@ -22,15 +22,14 @@ from zope.component.hooks import getSite
 
 def createdEvent(obj, event):
     portal = getSite()
-    parent = aq_parent(obj)
-    pl = getToolByName(portal, "portal_languages")
-
-    if IPloneSiteRoot.implementedBy(parent):
+    parent = event.newParent
+    if IPloneSiteRoot.providedBy(parent):
+        pl = getToolByName(portal, "portal_languages")
         language = pl.getPreferredLanguage()
     else:
         language = ILanguage(parent).get_language()
 
-    return language
+    ILanguage(obj).set_language(language)
 
 
 class LanguageIndependentModifier(object):
