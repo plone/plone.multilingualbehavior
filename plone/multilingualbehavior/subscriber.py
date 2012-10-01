@@ -1,4 +1,3 @@
-from Acquisition import aq_parent
 from zope.component import getUtility
 from zope.component import queryAdapter
 from zope.event import notify
@@ -13,6 +12,7 @@ from plone.dexterity.interfaces import IDexterityFTI
 from plone.multilingualbehavior.interfaces import IDexterityTranslatable
 
 from plone.multilingual.interfaces import ILanguage
+from plone.multilingual.interfaces import ITranslatable
 from plone.multilingual.interfaces import ILanguageIndependentFieldsManager
 from plone.multilingual.interfaces import ITranslationManager
 
@@ -26,8 +26,11 @@ def createdEvent(obj, event):
     if IPloneSiteRoot.providedBy(parent):
         pl = getToolByName(portal, "portal_languages")
         language = pl.getPreferredLanguage()
-    else:
+    elif ITranslatable.providedBy(parent):
         language = ILanguage(parent).get_language()
+    else:
+        # The parent is still the portal_factory so leave it alone
+        language = u''
 
     ILanguage(obj).set_language(language)
 
