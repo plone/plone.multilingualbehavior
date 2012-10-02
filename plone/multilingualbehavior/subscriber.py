@@ -5,34 +5,14 @@ from zope.lifecycleevent import Attributes
 from zope.lifecycleevent import ObjectModifiedEvent
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 
-from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 from plone.dexterity.interfaces import IDexterityFTI
 
 from plone.multilingualbehavior.interfaces import IDexterityTranslatable
 
 from plone.multilingual.interfaces import ILanguage
-from plone.multilingual.interfaces import ITranslatable
 from plone.multilingual.interfaces import ILanguageIndependentFieldsManager
 from plone.multilingual.interfaces import ITranslationManager
-
-from Products.CMFCore.utils import getToolByName
-from zope.component.hooks import getSite
-
-
-def createdEvent(obj, event):
-    portal = getSite()
-    parent = event.newParent
-    if IPloneSiteRoot.providedBy(parent):
-        pl = getToolByName(portal, "portal_languages")
-        language = pl.getPreferredLanguage()
-    elif ITranslatable.providedBy(parent):
-        language = ILanguage(parent).get_language()
-    else:
-        # The parent is still the portal_factory so leave it alone
-        language = u''
-
-    ILanguage(obj).set_language(language)
 
 
 class LanguageIndependentModifier(object):

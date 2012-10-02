@@ -90,8 +90,8 @@ Related fields
 
 We should be able to translate the type and get the translated related field::
 
-    >>> ITranslationManager(obj).add_translation('es')
-    >>> obj_en = ITranslationManager(obj).get_translation('es')
+    >>> ITranslationManager(obj).add_translation('en')
+    >>> obj_en = ITranslationManager(obj).get_translation('en')
     >>> obj.single.to_object
     <Item at /plone/testtypegrok>
     >>> obj_en.single.to_object

@@ -6,11 +6,6 @@
          zope.lifecycleevent.interfaces.IObjectModifiedEvent"
     handler="plone.multilingualbehavior.subscriber.handler"
     />
-    <subscriber
-    for="plone.multilingualbehavior.interfaces.IDexterityTranslatable
-         zope.app.container.interfaces.IObjectAddedEvent"
-    handler="plone.multilingualbehavior.subscriber.createdEvent"
-    />
   </subscribers>
   <adapters>
     <adapter

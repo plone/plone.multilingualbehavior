@@ -20,4 +20,3 @@ class Language(object):
     def set_language(self, language):
         self.context.language = language
 
-# ICategorization['language'].readonly = True
