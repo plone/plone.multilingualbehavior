@@ -11,12 +11,12 @@ The behavior provides the Dexterity-driven content with a marker interface
 translation UI components such as menus, views, etc...
 
 To make your Dexterity content type translatable, add the following line to
-the <!-- enabled behaviors --> section in your type's profile:
+the <!-- enabled behaviors --> section in your type's profile::
 
-<!-- enabled behaviors -->
-<property name="behaviors">
-    <element value="plone.multilingualbehavior.interfaces.IDexterityTranslatable" />
-</property>
+    <!-- enabled behaviors -->
+    <property name="behaviors">
+        <element value="plone.multilingualbehavior.interfaces.IDexterityTranslatable" />
+    </property>
 
 plone.multilingualbehavior implements language independent fields. The content
 of language independent fields is the same across all language versions. This
