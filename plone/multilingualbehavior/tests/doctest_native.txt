@@ -27,7 +27,9 @@ We should also be able to access the adapter for ``plone.multilingual.interfaces
 
 setting the language ::
     
+    >>> from zope.lifecycleevent import modified
     >>> adapter.set_language('ca')
+    >>> modified(obj)
 
 getting the language::
 
