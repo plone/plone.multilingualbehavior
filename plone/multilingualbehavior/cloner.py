@@ -4,6 +4,7 @@ from zope import interface
 from plone.multilingual.interfaces import ITranslationCloner
 from plone.multilingual.interfaces import ILanguageIndependentFieldsManager
 
+
 class Cloner(object):
 
     interface.implements(ITranslationCloner)

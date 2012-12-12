@@ -9,8 +9,10 @@ from zope.interface import Interface
 
 MULTILINGUAL_KEY = languageindependent.dotted_name()
 
+
 class IDexterityTranslatable(ITranslatable):
     """ special marker for dexterity """
+
 
 class ILanguageIndependentField(Interface):
     """ Marker interface for language independent fields """

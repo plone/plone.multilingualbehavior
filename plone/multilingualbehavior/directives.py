@@ -25,10 +25,10 @@ class LanguageIndependentStorage(object):
 class languageindependent(martian.Directive):
     """Directive used to mark one or more fields as 'languageindependent'
     """
-    
+
     scope = martian.CLASS
     store = LanguageIndependentStorage()
-    
+
     def factory(self, *args):
         return args
 

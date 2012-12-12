@@ -33,7 +33,8 @@ class LanguageIndependentFieldsManager(object):
         schemas.append(fti.lookupSchema())
 
         for behavior_schema in \
-                utils.getAdditionalSchemata(self.context, self.context.portal_type):
+                utils.getAdditionalSchemata(self.context,
+                                            self.context.portal_type):
             if behavior_schema is not None:
                 schemas.append(behavior_schema)
 
@@ -44,13 +45,12 @@ class LanguageIndependentFieldsManager(object):
                     if IRelationValue.providedBy(value):
                         obj = value.to_object
                         adapter = queryAdapter(translation, ILanguage)
-                        trans_obj = ITranslationManager(obj).get_translation(adapter.get_language())
+                        trans_obj = ITranslationManager(obj)\
+                            .get_translation(adapter.get_language())
                         if trans_obj:
                             intids = component.getUtility(IIntIds)
                             value = RelationValue(intids.getId(trans_obj))
                     if not (value == _marker):
-                        # We check if not (value == _marker) because z3c.relationfield has an __eq__
+                        # We check if not (value == _marker) because
+                        # z3c.relationfield has an __eq__
                         setattr(schema(translation), field_name, value)
-
-
-
