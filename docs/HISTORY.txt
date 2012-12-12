@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.0b4 - Unreleased
+------------------
+
+- Correct import and add new dependency for ``plone.supermodel.model``
+  because ``plone.directives.form`` 2.0 does no longer depend on grok.
+  [saily]
+
+
 1.0b3 - 2012-10-04
 ------------------
 

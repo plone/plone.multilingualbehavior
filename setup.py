@@ -25,6 +25,7 @@ setup(name='plone.multilingualbehavior',
       install_requires=[
           'setuptools',
           'plone.directives.dexterity',
+          'plone.directives.form'
           'plone.app.dexterity',
           'plone.multilingual',
       ],

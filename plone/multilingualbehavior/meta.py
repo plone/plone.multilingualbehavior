@@ -5,7 +5,7 @@ from zope.interface import alsoProvides
 
 from plone.multilingualbehavior.interfaces import ILanguageIndependentField
 from plone.multilingualbehavior.directives import languageindependent
-from plone.directives.form.schema import Schema
+from plone.directives.form import Schema
 
 class MultilingualGrokker(martian.InstanceGrokker):
     martian.component(Schema.__class__)
