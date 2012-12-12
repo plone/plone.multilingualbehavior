@@ -1,18 +1,19 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0b3'
+version = '1.0b4'
 
 setup(name='plone.multilingualbehavior',
       version=version,
       description="Dexterity behavior for enabling multilingual extensions",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
-      # Get more strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+      # Get more strings from
+      # http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
-        "Framework :: Plone",
-        "Programming Language :: Python",
-        ],
+          "Framework :: Plone",
+          "Programming Language :: Python",
+          ],
       keywords='dexterity multilingual plone',
       author='Plone Foundation',
       author_email='sneridagh@gmail.com',
@@ -24,13 +25,15 @@ setup(name='plone.multilingualbehavior',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'plone.directives.form',
           'plone.directives.dexterity',
-          'plone.directives.form'
           'plone.app.dexterity',
           'plone.multilingual',
       ],
-      extras_require = {
-          'test': [ 'plone.app.testing',],
+      extras_require={
+          'test': [
+              'plone.app.testing',
+          ],
       },
       entry_points="""
       # -*- Entry points: -*-
