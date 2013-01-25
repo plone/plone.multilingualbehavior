@@ -4,6 +4,7 @@
     <dependencies>
         <dependency>profile-plone.multilingual:default</dependency>
         <dependency>profile-plone.app.dexterity:default</dependency>
+        <dependency>profile-plone.app.relationfield:default</dependency>
     </dependencies>
 </metadata>
               
