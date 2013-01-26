@@ -33,6 +33,7 @@ setup(name='plone.multilingualbehavior',
       extras_require={
           'test': [
               'plone.app.testing',
+              'plone.app.dexterity[relations]',
           ],
       },
       entry_points="""
