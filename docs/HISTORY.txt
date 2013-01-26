@@ -1,8 +1,14 @@
 Changelog
 =========
 
-1.0b4 - Unreleased
-------------------
+1.0 - Unreleased
+----------------
+
+1.0rc1 - 2013-01-26
+-------------------
+
+- Adding relationfield to test profile
+  [ramon]
 
 - PEP8 cleanup
   [saily]
