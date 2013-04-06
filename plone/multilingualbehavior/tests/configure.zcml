@@ -4,8 +4,9 @@
     xmlns:grok="http://namespaces.zope.org/grok"
     i18n_domain="plone.multilingualbehavior"
     >
-    
+
     <includeDependencies package="." />
+    <include package="plone.multilingual" file="testing.zcml" />
 
     <grok:grok package="."/>
 
@@ -16,7 +17,7 @@
       	directory="profile"
       	provides="Products.GenericSetup.interfaces.EXTENSION"
       	for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    />    
+    />
 
 </configure>
 
