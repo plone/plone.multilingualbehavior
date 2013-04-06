@@ -4,10 +4,6 @@ Changelog
 1.0 - Unreleased
 ----------------
 
-- When the behavior is manually added to a content type TTW, make sure all
-  existing instances of this type receive a Translation Group, refs PAM #44
-  [pysailor]
-
 1.0rc1 - 2013-01-26
 -------------------
 
