@@ -1,0 +1,78 @@
+plone.multilingualbehavior tests
+--------------------------------
+
+Here we test a content type that does not natively support the behavior
+``plone.multilingualbehavior.interfaces.ITranslatable``. Rather, this behavior
+is added manually through the web.
+
+Create a new Browser and connect it::
+
+    >>> from plone.app.testing import (
+    ...     SITE_OWNER_NAME,
+    ...     SITE_OWNER_PASSWORD,
+    ... )
+    >>> from plone.testing.z2 import Browser
+    >>> browser = Browser(layer['app'])
+    >>> browser.handleErrors = False
+    >>> browser.addHeader('Authorization', 'Basic %s:%s' %(SITE_OWNER_NAME, SITE_OWNER_PASSWORD))
+
+Now we should be able to create a new Samplecontent object that does not have the
+translatable behavior::
+
+    >>> portal = layer['portal']
+    >>> browser.open('%s/++add++samplecontent_nobehavior' %(portal.absolute_url()))
+    >>> browser.getControl(name='form.widgets.field_test').value = 'Blubb'
+    >>> browser.getControl(name='form.widgets.field_independent_test').value = 'Blubb'
+    >>> browser.getControl(name='form.buttons.save').click()
+
+We should be able to access the object, it should NOT provide the marker
+interface ``plone.multilingual.interfaces.ITranslatable`` and
+``plone.multilingual.interfaces.IDexterityTranslatable``::
+
+    >>> obj = portal.get('samplecontent_nobehavior')
+    >>> from plone.multilingual.interfaces import ITranslatable
+    >>> ITranslatable.providedBy(obj)
+    False
+
+    >>> from plone.multilingualbehavior.interfaces import IDexterityTranslatable
+    >>> IDexterityTranslatable.providedBy(obj)
+    False
+
+We should also NOT be able to access the adapter for ``plone.multilingual.interfaces.ILanguage``::
+
+    >>> from plone.multilingual.interfaces import ILanguage
+    >>> from zope.component import queryAdapter
+    >>> adapter = queryAdapter(obj, ILanguage)
+    >>> adapter == None
+    True
+
+And we can't get the TranslationGroup adapter on the item::
+
+    >>> from plone.multilingual.interfaces import ITG
+    >>> itg = queryAdapter(obj, ITG)
+    >>> itg == None
+    True
+
+We now enable the multilingual behavior via the Dexterity Types config in the portal:
+
+    >>> browser.open('%s/dexterity-types/samplecontent_nobehavior/@@behaviors' % portal.absolute_url())
+    >>> browser.getControl(name=
+    ... 'form.widgets.plone.multilingualbehavior.interfaces.IDexterityTranslatable:list').value = ['selected']
+    >>> browser.getControl(name='form.buttons.apply').click()
+    >>> import transaction; transaction.commit()
+
+The object now supports multilingual behavior::
+
+    >>> ITranslatable.providedBy(obj)
+    True
+
+    >>> IDexterityTranslatable.providedBy(obj)
+    True
+
+    >>> adapter = queryAdapter(obj, ILanguage)
+    >>> adapter is not None
+    True
+
+    >>> itg = queryAdapter(obj, ITG)
+    >>> itg is not None
+    True
