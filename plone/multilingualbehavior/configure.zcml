@@ -32,4 +32,17 @@
         name="plone.rfc822.lingua"
         />
 
+    <!-- Integration for language-independent values in z3c.form -->
+
+    <adapter
+      for="*
+           *
+           z3c.form.interfaces.IAddForm
+           plone.multilingualbehavior.interfaces.ILanguageIndependentField
+           z3c.form.interfaces.IWidget"
+      factory=".form.AddingLanguageIndependentValue"
+      name="default"
+      />
+
+
 </configure>
