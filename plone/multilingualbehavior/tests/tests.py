@@ -9,7 +9,8 @@ from plone.multilingualbehavior.tests._testing import (
 integration_tests = [
     'doctest_behavior.txt',
     'doctest_native.txt',
-    'doctest_grok_directive.txt'
+    'doctest_grok_directive.txt',
+    'doctest_manualbehavior.txt',
 ]
 functional_tests = [
     'language.txt'

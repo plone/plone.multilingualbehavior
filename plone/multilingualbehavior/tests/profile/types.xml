@@ -4,5 +4,6 @@
     <object name="testtypegrokfolder" meta_type="Dexterity FTI" />
     <object name="testtypeinterface" meta_type="Dexterity FTI" />
     <object name="testtyperelatedgrok" meta_type="Dexterity FTI" />
+    <object name="samplecontent_nobehavior" meta_type="Dexterity FTI" />
 </object>
 
