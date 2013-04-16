@@ -46,12 +46,6 @@ We should also NOT be able to access the adapter for ``plone.multilingual.interf
     >>> adapter == None
     True
 
-And we can't get the TranslationGroup adapter on the item::
-
-    >>> from plone.multilingual.interfaces import ITG
-    >>> itg = queryAdapter(obj, ITG)
-    >>> itg == None
-    True
 
 We now enable the multilingual behavior via the Dexterity Types config in the portal:
 
@@ -63,16 +57,26 @@ We now enable the multilingual behavior via the Dexterity Types config in the po
 
 The object now supports multilingual behavior::
 
+It is translatable,
+
     >>> ITranslatable.providedBy(obj)
     True
 
     >>> IDexterityTranslatable.providedBy(obj)
     True
 
+and it adapts the ILanguage interface,
+
     >>> adapter = queryAdapter(obj, ILanguage)
     >>> adapter is not None
     True
 
-    >>> itg = queryAdapter(obj, ITG)
-    >>> itg is not None
-    True
+and we can translate it::
+
+    >>> from plone.multilingual.interfaces import ITranslationManager
+    >>> ITranslationManager(obj).add_translation('ca')
+    >>> obj_ca = ITranslationManager(obj).get_translation('ca')
+
+    >>> ILanguage(obj_ca).get_language()
+    'ca'
+

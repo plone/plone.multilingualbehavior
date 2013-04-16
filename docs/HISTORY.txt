@@ -4,6 +4,9 @@ Changelog
 1.0 - Unreleased
 ----------------
 
+- Added a test for adding multilingual behavior through the web
+  [pysailor]
+
 1.0rc1 - 2013-01-26
 -------------------
 
