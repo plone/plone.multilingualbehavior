@@ -1,9 +1,11 @@
 Changelog
 =========
 
-1.0 - Unreleased
+1.0 - 2013-04-16
 ----------------
 
+- Removing ITG usage to ITranslationManager
+  [pysailor]
 - Added a test for adding multilingual behavior through the web
   [pysailor]
 
