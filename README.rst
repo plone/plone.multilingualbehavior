@@ -33,11 +33,13 @@ version of plone.schemaeditor.
 For more information, please visit:
 https://github.com/plone/plone.app.multilingual
 
+Please report any bugs or feature requests to our `issue tracker`_.
+
 
 Dependencies
 ------------
-- plone.multilingual (Core and base implementation)
-- plone.app.multilingual (Multilingual configlet, menu and global views)
+- `plone.multilingual`_ (Core and base implementation)
+- `plone.app.multilingual`_ (Multilingual configlet, menu and global views)
 
 Contributors
 ------------
@@ -45,3 +47,8 @@ Contributors
 - Ramon Navarro  [bloodbare]  (ramon.nb@gmail.com)
 - Víctor Fernández de Alba  [sneridagh]  (sneridagh@gmail.com)
 - Daniel Widerin  [saily]
+
+
+.. _`plone.multilingual`: https://github.com/plone/plone.multilingual
+.. _`plone.app.multilingual`: https://github.com/plone/plone.app.multilingual
+.. _`issue tracker`: https://github.com/plone/plone.app.multilingual/issues
