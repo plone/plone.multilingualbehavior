@@ -31,16 +31,17 @@ field to be language independent through the web, given a sufficiently new
 version of plone.schemaeditor.
 
 For more information, please visit:
-
-    https://github.com/plone/plone.app.multilingual
+https://github.com/plone/plone.app.multilingual
 
 
 Dependencies
 ------------
-plone.multilingual (Core and base implementation)
-plone.app.multilingual (Multilingual configlet, menu and global views)
+- plone.multilingual (Core and base implementation)
+- plone.app.multilingual (Multilingual configlet, menu and global views)
 
 Contributors
 ------------
-Ramon Navarro (ramon.nb@gmail.com)
-Víctor Fernández de Alba (sneridagh@gmail.com)
+
+- Ramon Navarro  [bloodbare]  (ramon.nb@gmail.com)
+- Víctor Fernández de Alba  [sneridagh]  (sneridagh@gmail.com)
+- Daniel Widerin  [saily]
