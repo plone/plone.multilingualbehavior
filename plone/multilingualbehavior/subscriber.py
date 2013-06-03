@@ -62,11 +62,11 @@ class LanguageIndependentModifier(object):
     def reindex_translation(self, translation):
         """Once the modification is done, reindex translation"""
         translation.reindexObject()
-
+        # XXX: Is it really required to fire an ObjectModifiedEvent?
         # fti = getUtility(IDexterityFTI, name=translation.portal_type)
         # schema = fti.lookupSchema()
         # descriptions = Attributes(schema)
-        # notify(ObjectModifiedEvent(translatio, descriptions))
+        # notify(ObjectModifiedEvent(translation, descriptions))
 
     def get_all_translations(self, content):
         """Return all translations excluding the just modified content"""
