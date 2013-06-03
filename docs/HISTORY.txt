@@ -1,6 +1,19 @@
 Changelog
 =========
 
+1.1 - Unreleased
+----------------
+
+- Rewrite ``handle_modified`` subscriber to not notify ObjectModifiedEvent,
+  just reindex the object.
+  [saily]
+
+- Switch to a cloned user with a global Editor role to allow synchronization
+  of language independant fields of other object (which the current user could
+  not have permission to) when modifying an object.
+  [saily]
+
+
 1.0 - 2013-04-16
 ----------------
 
