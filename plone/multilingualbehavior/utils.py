@@ -38,9 +38,12 @@ class LanguageIndependentFieldsManager(object):
             if behavior_schema is not None:
                 schemas.append(behavior_schema)
 
+        doomed = False
         for schema in schemas:
             for field_name in schema:
                 if ILanguageIndependentField.providedBy(schema[field_name]):
+                    doomed = True
+
                     value = getattr(schema(self.context), field_name, _marker)
                     if IRelationValue.providedBy(value):
                         obj = value.to_object
@@ -54,3 +57,8 @@ class LanguageIndependentFieldsManager(object):
                         # We check if not (value == _marker) because
                         # z3c.relationfield has an __eq__
                         setattr(schema(translation), field_name, value)
+
+        # If at least one field has been copied over to the translation
+        # we need to inform subscriber to trigger an ObjectModifiedEvent
+        # on that translation.
+        return doomed

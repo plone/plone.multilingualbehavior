@@ -5,11 +5,16 @@ from AccessControl.SecurityManagement import setSecurityManager
 from AccessControl.User import UnrestrictedUser
 from Products.CMFCore.utils import getToolByName
 
+from plone.dexterity.interfaces import IDexterityFTI
 from plone.multilingual.interfaces import ILanguage
 from plone.multilingual.interfaces import ILanguageIndependentFieldsManager
 from plone.multilingual.interfaces import ITranslationManager
 from plone.multilingualbehavior.interfaces import IDexterityTranslatable
 from zope.component import queryAdapter
+from zope.component import getUtility
+from zope.event import notify
+from zope.lifecycleevent import ObjectModifiedEvent
+from zope.lifecycleevent import Attributes
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 
 
@@ -49,10 +54,11 @@ class LanguageIndependentModifier(object):
                 # Copy over all language independent fields
                 transmanager = ITranslationManager(content)
                 fieldmanager = ILanguageIndependentFieldsManager(content)
+
                 for translation in self.get_all_translations(content):
                     trans_obj = transmanager.get_translation(translation)
-                    fieldmanager.copy_fields(trans_obj)
-                    self.reindex_translation(trans_obj)
+                    if fieldmanager.copy_fields(trans_obj):
+                        self.reindex_translation(trans_obj)
             finally:
                 # Restore the old security manager
                 setSecurityManager(sm)
@@ -62,11 +68,11 @@ class LanguageIndependentModifier(object):
     def reindex_translation(self, translation):
         """Once the modification is done, reindex translation"""
         translation.reindexObject()
-        # XXX: Is it really required to fire an ObjectModifiedEvent?
-        # fti = getUtility(IDexterityFTI, name=translation.portal_type)
-        # schema = fti.lookupSchema()
-        # descriptions = Attributes(schema)
-        # notify(ObjectModifiedEvent(translation, descriptions))
+
+        fti = getUtility(IDexterityFTI, name=translation.portal_type)
+        schema = fti.lookupSchema()
+        descriptions = Attributes(schema)
+        notify(ObjectModifiedEvent(translation, descriptions))
 
     def get_all_translations(self, content):
         """Return all translations excluding the just modified content"""
