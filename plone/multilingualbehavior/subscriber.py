@@ -21,25 +21,27 @@ from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 class LanguageIndependentModifier(object):
     """Class to handle dexterity editions."""
 
-    stack = []
+    # The permission to check before switching to an global editor
+    permission = 'plone.app.multilingual: Manage Translations'
 
     def __call__(self, content, event):
         """Called by the event system."""
         if IDexterityTranslatable.providedBy(content):
+            self.canonical = ITranslationManager(content).query_canonical()
+
+            if event.descriptions \
+               and len(event.descriptions) > 1 \
+               and event.descriptions[1] == self.canonical:
+                return
+
             if IObjectModifiedEvent.providedBy(event):
                 self.handle_modified(content)
 
     def handle_modified(self, content):
-        canonical = ITranslationManager(content).query_canonical()
-        if canonical in self.stack:
-            return
-        else:
-            self.stack.append(canonical)
-
-            sm = getSecurityManager()
-            acl_users = getToolByName(content, 'acl_users')
-
-            try:
+        sm = getSecurityManager()
+        try:
+            # Do we have permission to sync language independent fields?
+            if sm.checkPermission(self.permission, content):
                 # Clone the current user and assign a new editor role to
                 # allow edition of all translated objects even if the
                 # current user whould not have permission to do that.
@@ -48,22 +50,22 @@ class LanguageIndependentModifier(object):
 
                 # Wrap the user in the acquisition context of the portal
                 # and finally switch the user to our new editor
+                acl_users = getToolByName(content, 'acl_users')
                 tmp_user = tmp_user.__of__(acl_users)
                 newSecurityManager(None, tmp_user)
 
-                # Copy over all language independent fields
-                transmanager = ITranslationManager(content)
-                fieldmanager = ILanguageIndependentFieldsManager(content)
+            # Copy over all language independent fields
+            transmanager = ITranslationManager(content)
+            fieldmanager = ILanguageIndependentFieldsManager(content)
 
-                for translation in self.get_all_translations(content):
-                    trans_obj = transmanager.get_translation(translation)
-                    if fieldmanager.copy_fields(trans_obj):
-                        self.reindex_translation(trans_obj)
-            finally:
-                # Restore the old security manager
-                setSecurityManager(sm)
-
-            self.stack.remove(canonical)
+            for translation in self.get_all_translations(content):
+                trans_obj = transmanager.get_translation(translation)
+                if fieldmanager.copy_fields(trans_obj):
+                    pass
+                self.reindex_translation(trans_obj)
+        finally:
+            # Restore the old security manager
+            setSecurityManager(sm)
 
     def reindex_translation(self, translation):
         """Once the modification is done, reindex translation"""
@@ -72,7 +74,9 @@ class LanguageIndependentModifier(object):
         fti = getUtility(IDexterityFTI, name=translation.portal_type)
         schema = fti.lookupSchema()
         descriptions = Attributes(schema)
-        notify(ObjectModifiedEvent(translation, descriptions))
+
+        # Pass the canonical object as a event description
+        notify(ObjectModifiedEvent(translation, descriptions, self.canonical))
 
     def get_all_translations(self, content):
         """Return all translations excluding the just modified content"""
