@@ -56,10 +56,12 @@ class LanguageIndependentModifier(object):
         translations_list_to_process = []
         content_lang = queryAdapter(content, ILanguage).get_language()
         canonical = ITranslationManager(content)
-        translations = canonical.get_translations()
-        for language in translations.keys():
-            if language != content_lang:
-                translations_list_to_process.append(translations[language])
+        languages = canonical.get_translated_languages()
+        if len(languages) > 1:
+            translations = canonical.get_translations()
+            for language in translations.keys():
+                if language != content_lang:
+                    translations_list_to_process.append(translations[language])
         return translations_list_to_process
 
 handler = LanguageIndependentModifier()
