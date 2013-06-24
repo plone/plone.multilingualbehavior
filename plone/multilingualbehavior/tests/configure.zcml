@@ -2,22 +2,20 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:grok="http://namespaces.zope.org/grok"
-    i18n_domain="plone.multilingualbehavior"
-    >
+    i18n_domain="plone.multilingualbehavior">
 
     <includeDependencies package="." />
     <include package="plone.multilingual" file="testing.zcml" />
 
     <grok:grok package="."/>
 
-  	<genericsetup:registerProfile
-    	name="testing"
-      	title="plone.multilingualbehavior"
-      	description="plone.multilingualbehavior"
-      	directory="profile"
-      	provides="Products.GenericSetup.interfaces.EXTENSION"
-      	for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-    />
+    <genericsetup:registerProfile
+        name="testing"
+        title="plone.multilingualbehavior"
+        description="plone.multilingualbehavior"
+        directory="profile"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        />
 
 </configure>
-
