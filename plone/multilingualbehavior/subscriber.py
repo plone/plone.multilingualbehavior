@@ -5,11 +5,13 @@ from AccessControl.SecurityManagement import setSecurityManager
 from AccessControl.User import UnrestrictedUser
 from Products.CMFCore.utils import getToolByName
 
+from plone.app.multilingual.interfaces import IMultiLanguageExtraOptionsSchema
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.multilingual.interfaces import ILanguage
 from plone.multilingual.interfaces import ILanguageIndependentFieldsManager
 from plone.multilingual.interfaces import ITranslationManager
 from plone.multilingualbehavior.interfaces import IDexterityTranslatable
+from plone.registry.interfaces import IRegistry
 from zope.component import queryAdapter
 from zope.component import getUtility
 from zope.event import notify
@@ -22,7 +24,7 @@ class LanguageIndependentModifier(object):
     """Class to handle dexterity editions."""
 
     # The permission to check before switching to an global editor
-    permission = 'plone.app.multilingual: Manage Translations'
+    # permission = 'plone.app.multilingual: Manage Translations'
 
     def __call__(self, content, event):
         """Called by the event system."""
@@ -37,11 +39,16 @@ class LanguageIndependentModifier(object):
             if IObjectModifiedEvent.providedBy(event):
                 self.handle_modified(content)
 
+    def bypass_security_checks(self):
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(IMultiLanguageExtraOptionsSchema)
+        return settings.bypass_languageindependent_field_permission_check
+
     def handle_modified(self, content):
         sm = getSecurityManager()
         try:
             # Do we have permission to sync language independent fields?
-            if sm.checkPermission(self.permission, content):
+            if self.bypass_security_checks():
                 # Clone the current user and assign a new editor role to
                 # allow edition of all translated objects even if the
                 # current user whould not have permission to do that.

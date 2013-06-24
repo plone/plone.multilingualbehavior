@@ -29,6 +29,7 @@ setup(name='plone.multilingualbehavior',
           'plone.directives.dexterity',
           'plone.app.dexterity',
           'plone.multilingual',
+          'plone.app.multilingual',
       ],
       extras_require={
           'test': [
