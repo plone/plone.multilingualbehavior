@@ -34,7 +34,6 @@ setup(name='plone.multilingualbehavior',
           'test': [
               'plone.app.testing',
               'plone.app.dexterity[relations]',
-              'plone.app.contenttypes',
           ],
       },
       entry_points="""
