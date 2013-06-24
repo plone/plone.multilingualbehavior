@@ -36,14 +36,15 @@ class LanguageIndependentModifier(object):
             # Copy over all language independent fields
             translations = self.get_all_translations(content)
             manager = ILanguageIndependentFieldsManager(content)
-            for translation in translations:
-                manager.copy_fields(translation)
+            if manager.has_independent_fields:
+                for translation in translations:
+                    manager.copy_fields(translation)
 
-            fti = getUtility(IDexterityFTI, name=content.portal_type)
-            schema = fti.lookupSchema()
-            descriptions = Attributes(schema)
-            self.reindex_translations(translations, descriptions)
-            self.stack.remove(canonical)
+                fti = getUtility(IDexterityFTI, name=content.portal_type)
+                schema = fti.lookupSchema()
+                descriptions = Attributes(schema)
+                self.reindex_translations(translations, descriptions)
+                self.stack.remove(canonical)
 
     def reindex_translations(self, translations, descriptions):
         """Once the modifications are done, reindex all translations"""
