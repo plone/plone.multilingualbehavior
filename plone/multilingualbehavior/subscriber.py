@@ -23,9 +23,6 @@ from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 class LanguageIndependentModifier(object):
     """Class to handle dexterity editions."""
 
-    # The permission to check before switching to an global editor
-    # permission = 'plone.app.multilingual: Manage Translations'
-
     def __call__(self, content, event):
         """Called by the event system."""
         if IDexterityTranslatable.providedBy(content):
@@ -40,6 +37,8 @@ class LanguageIndependentModifier(object):
                 self.handle_modified(content)
 
     def bypass_security_checks(self):
+        # return sm.checkPermission(
+        #     'plone.app.multilingual: Manage Translations', content)  # BBB
         registry = getUtility(IRegistry)
         settings = registry.forInterface(IMultiLanguageExtraOptionsSchema)
         return settings.bypass_languageindependent_field_permission_check
