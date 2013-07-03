@@ -38,13 +38,13 @@ interface ``plone.multilingual.interfaces.ITranslatable`` and
     >>> IDexterityTranslatable.providedBy(obj)
     False
 
-We should also NOT be able to access the adapter for ``plone.multilingual.interfaces.ILanguage``::
+We should be able to access the adapter for ``plone.multilingual.interfaces.ILanguage``::
 
     >>> from plone.multilingual.interfaces import ILanguage
     >>> from zope.component import queryAdapter
     >>> adapter = queryAdapter(obj, ILanguage)
     >>> adapter == None
-    True
+    False
 
 
 We now enable the multilingual behavior via the Dexterity Types config in the portal:
