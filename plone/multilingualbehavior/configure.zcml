@@ -22,7 +22,7 @@
     />
 
     <adapter
-        for=".interfaces.IDexterityTranslatable"
+        for="plone.dexterity.interfaces.IDexterityContent"
         provides="plone.multilingual.interfaces.ILanguage"
         factory=".language.Language" />
 
