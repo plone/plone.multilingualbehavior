@@ -14,12 +14,14 @@ Changelog
   not have permission to) when modifying an object.  Fixes #66
   [saily]
 
+- We may need to know the language from a object that is not ITranslatable
+  [ramon]
 
 1.1 - 2013-06-19
 ----------------
 
-- Nothing changed
-
+- Minor PEP8 errors
+  [ramon]
 
 1.0 - 2013-04-16
 ----------------
