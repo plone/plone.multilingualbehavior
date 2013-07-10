@@ -47,6 +47,11 @@ class LanguageIndependentModifier(object):
         return field and field.value or False
 
     def handle_modified(self, content):
+
+        fieldmanager = ILanguageIndependentFieldsManager(content)
+        if not fieldmanager.has_independent_fields():
+            return
+
         sm = getSecurityManager()
         try:
             # Do we have permission to sync language independent fields?
@@ -65,8 +70,6 @@ class LanguageIndependentModifier(object):
 
             # Copy over all language independent fields
             transmanager = ITranslationManager(content)
-            fieldmanager = ILanguageIndependentFieldsManager(content)
-
             for translation in self.get_all_translations(content):
                 trans_obj = transmanager.get_translation(translation)
                 if fieldmanager.copy_fields(trans_obj):
