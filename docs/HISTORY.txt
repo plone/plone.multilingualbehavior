@@ -4,6 +4,9 @@ Changelog
 1.2 - Unreleased
 ----------------
 
+- Check property ``bypass_languageindependent_field_permission_check`` exists
+  in registry to allow usage with lrf-branch.  [saily]
+
 - Rewrite ``handle_modified`` subscriber to notify ObjectModifiedEvent,
   and pass canonical object as event-description. This replaces the non-working
   semaphore.  Fixes #65

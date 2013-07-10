@@ -37,11 +37,14 @@ class LanguageIndependentModifier(object):
                 self.handle_modified(content)
 
     def bypass_security_checks(self):
-        # return sm.checkPermission(
-        #     'plone.app.multilingual: Manage Translations', content)  # BBB
         registry = getUtility(IRegistry)
-        settings = registry.forInterface(IMultiLanguageExtraOptionsSchema)
-        return settings.bypass_languageindependent_field_permission_check
+
+        # BBB for lrf-branch
+        field = registry.records.get(
+            IMultiLanguageExtraOptionsSchema.__identifier__ +
+            '.bypass_languageindependent_field_permission_check')
+
+        return field and field.value or False
 
     def handle_modified(self, content):
         sm = getSecurityManager()
