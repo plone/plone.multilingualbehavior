@@ -72,7 +72,7 @@ class LanguageIndependentModifier(object):
             transmanager = ITranslationManager(content)
             for translation in self.get_all_translations(content):
                 trans_obj = transmanager.get_translation(translation)
-                if fieldmanager.copy_fields(trans_obj):
+                if trans_obj and fieldmanager.copy_fields(trans_obj):
                     self.reindex_translation(trans_obj)
         finally:
             # Restore the old security manager
