@@ -49,7 +49,7 @@ class AddingLanguageIndependentValue(ValueBase):
 
         if isLanguageIndependent(self.field) and uuid:
             manager = TranslationManager(uuid)
-            result = manager.get_translations()
+            result = manager.get_restricted_translations()
 
             if len(result) >= 1:
 
