@@ -13,6 +13,7 @@
 
     <include file="meta.zcml" />
     <include file="profile.zcml" />
+    <include package=".upgrades" />
 
     <plone:behavior
     	title="Multilingual Support"
