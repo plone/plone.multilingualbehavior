@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.2.1 (unreleased)
+------------------
+
+- Use the more specific IEditFinishedEvent rather than IObjectModifiedEvent
+  for copying over language independent fields, since IObjectModifiedEvent
+  can be thrown multiple times, causing a performace lag [pysailor]
+
 1.2 - 2013-09-24
 ----------------
 
