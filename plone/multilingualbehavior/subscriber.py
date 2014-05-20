@@ -17,7 +17,7 @@ from zope.component import getUtility
 from zope.event import notify
 from zope.lifecycleevent import ObjectModifiedEvent
 from zope.lifecycleevent import Attributes
-from zope.lifecycleevent.interfaces import IObjectModifiedEvent
+from plone.dexterity.interfaces import IEditFinishedEvent
 
 
 class LanguageIndependentModifier(object):
@@ -28,12 +28,7 @@ class LanguageIndependentModifier(object):
         if IDexterityTranslatable.providedBy(content):
             self.canonical = ITranslationManager(content).query_canonical()
 
-            if event.descriptions \
-               and len(event.descriptions) > 1 \
-               and event.descriptions[1] == self.canonical:
-                return
-
-            if IObjectModifiedEvent.providedBy(event):
+            if IEditFinishedEvent.providedBy(event):
                 self.handle_modified(content)
 
     def bypass_security_checks(self):

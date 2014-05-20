@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+
+  <genericsetup:upgradeStep
+      source="01"
+      destination="02"
+      title="Enable event handler for IEditFinishedEvent"
+      description="Disables the old handler for ObjectModifiedEvent to improve performance"
+      profile="plone.multilingualbehavior:default"
+      handler=".upgrades.enable_ieditfinishedevent"
+      />
+
+
+</configure>
+

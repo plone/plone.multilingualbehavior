@@ -3,7 +3,7 @@
   <subscribers>
     <subscriber
     for="plone.multilingualbehavior.interfaces.IDexterityTranslatable
-         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+         plone.dexterity.interfaces.IEditFinishedEvent"
     handler="plone.multilingualbehavior.subscriber.handler"
     />
   </subscribers>
