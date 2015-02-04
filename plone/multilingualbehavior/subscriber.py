@@ -91,4 +91,7 @@ class LanguageIndependentModifier(object):
         translations.remove(content_lang)
         return translations
 
+    def __name__(self):
+        return 'handler'
+
 handler = LanguageIndependentModifier()
