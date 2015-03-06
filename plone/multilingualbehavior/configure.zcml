@@ -30,6 +30,7 @@
     <!-- Configure plone.supermodel handler if available -->
     <utility zcml:condition="installed plone.supermodel"
         factory=".supermodel.LanguageIndependentFieldMetadataHandler"
+        provides="plone.multilingual.interfaces.ILanguage"
         name="plone.rfc822.lingua"
         />
 
