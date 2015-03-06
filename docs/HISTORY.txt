@@ -8,6 +8,8 @@ Changelog
   tab into ZMI (/manage_components) or when you try to make a snapshot.
   [bsuttor]
 
+- Add uninstall profile.
+
 
 1.2.1 (2014-05-23)
 ------------------
