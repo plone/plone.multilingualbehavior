@@ -71,6 +71,6 @@ def uninstall(context):
     app = portal.restrictedTraverse('/')
     app._p_jar.sync()
 
-    setup_tool = getToolByName(portal, 'portal_setup')
-    setup_tool.runAllImportStepsFromProfile(
-        'profile-plone.multilingual:uninstall', purge_old=False)
+    # setup_tool = getToolByName(portal, 'portal_setup')
+    # setup_tool.runAllImportStepsFromProfile(
+    #     'profile-plone.multilingual:uninstall', purge_old=False)
