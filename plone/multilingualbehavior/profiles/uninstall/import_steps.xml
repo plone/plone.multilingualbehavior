@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<import-steps>
+  <import-step id="plone.multilingualbehavior.uninstall"
+               handler="plone.multilingualbehavior.setuphandlers.uninstall"
+               title="plone.multilingualbehavior: uninstall import step">
+  </import-step>
+</import-steps>

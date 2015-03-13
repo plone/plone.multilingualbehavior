@@ -1,25 +1,25 @@
 <?xml version="1.0"?>
 <componentregistry>
-  <subscribers>
+  <subscribers remove="True">
     <subscriber
+      remove="True"
       for="plone.multilingualbehavior.interfaces.IDexterityTranslatable
            plone.dexterity.interfaces.IEditFinishedEvent"
       handler="plone.multilingualbehavior.subscriber.handler"
-      remove="True"
     />
   </subscribers>
   <adapters>
     <adapter
+      remove="True"
       for="plone.multilingualbehavior.interfaces.IDexterityTranslatable"
       provides="plone.multilingual.interfaces.ITranslationCloner"
       factory="plone.multilingualbehavior.cloner.Cloner"
-      remove="True"
     />
     <adapter
+      remove="True"
       for="plone.multilingualbehavior.interfaces.IDexterityTranslatable"
       provides="plone.multilingual.interfaces.ILanguageIndependentFieldsManager"
       factory="plone.multilingualbehavior.utils.LanguageIndependentFieldsManager"
-      remove="True"
     />
   </adapters>
 </componentregistry>
