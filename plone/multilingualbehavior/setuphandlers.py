@@ -5,6 +5,7 @@ from zope.component.interfaces import IComponentRegistry
 from zope.component import getGlobalSiteManager
 import transaction
 import logging
+from Products.CMFCore.utils import getToolByName
 log = logging.getLogger(__name__)
 
 
@@ -69,3 +70,7 @@ def uninstall(context):
     transaction.commit()
     app = portal.restrictedTraverse('/')
     app._p_jar.sync()
+
+    setup_tool = getToolByName(portal, 'portal_setup')
+    setup_tool.runAllImportStepsFromProfile(
+        'profile-plone.multilingual:uninstall', purge_old=False)
