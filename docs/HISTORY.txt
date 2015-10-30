@@ -4,8 +4,14 @@ Changelog
 1.2.2 (unreleased)
 ------------------
 
+- Add uninstall step.
+  [bsuttor]
+
 - __name__ method is added for preventing bug when you try to go in Components
   tab into ZMI (/manage_components) or when you try to make a snapshot.
+  [bsuttor]
+
+- Add uninstall profile.
   [bsuttor]
 
 

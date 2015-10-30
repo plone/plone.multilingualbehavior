@@ -11,4 +11,13 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="plone.multilingualbehavior (uninstall)"
+      description="Dexterity behavior for enabling multilingual extensions"
+      directory="profiles/uninstall"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+
 </configure>
