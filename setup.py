@@ -8,11 +8,15 @@ setup(name='plone.multilingualbehavior',
       description="Dexterity behavior for enabling multilingual extensions",
       long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
-      # Get more strings from
-      # http://pypi.python.org/pypi?%3Aaction=list_classifiers
+      # Get more strings from https://pypi.org/classifiers/
       classifiers=[
+          "Development Status :: 7 - Inactive",
           "Framework :: Plone",
+          "Framework :: Plone :: 4.3",
+          "License :: OSI Approved :: GNU General Public License (GPL)",
           "Programming Language :: Python",
+          "Programming Language :: Python :: 2",
+          "Programming Language :: Python :: 2.7",
           ],
       keywords='dexterity multilingual plone',
       author='Plone Foundation',
