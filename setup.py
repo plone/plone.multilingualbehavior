@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-import os
 
 version = '1.2.2.dev0'
 
@@ -7,7 +6,7 @@ setup(name='plone.multilingualbehavior',
       version=version,
       description="Dexterity behavior for enabling multilingual extensions",
       long_description=open("README.rst").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+                       open("CHANGES.rst").read(),
       # Get more strings from https://pypi.org/classifiers/
       classifiers=[
           "Development Status :: 7 - Inactive",
