@@ -4,7 +4,9 @@ Changelog
 1.2.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Made the ``__name__`` method of the handler a property.
+  Otherwise you get a very weird name with 'bound method' in it.
+  [maurits]
 
 
 1.2.2 (2019-12-24)
@@ -13,7 +15,7 @@ Changelog
 - Add uninstall step.
   [bsuttor]
 
-- __name__ method is added for preventing bug when you try to go in Components
+- ``__name__`` method is added for preventing bug when you try to go in Components
   tab into ZMI (/manage_components) or when you try to make a snapshot.
   [bsuttor]
 
