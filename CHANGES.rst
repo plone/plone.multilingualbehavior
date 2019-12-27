@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.2.3 (unreleased)
+1.2.3 (2019-12-27)
 ------------------
 
 - Made the ``__name__`` method of the handler a property.
